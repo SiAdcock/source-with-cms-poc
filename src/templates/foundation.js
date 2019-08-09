@@ -5,13 +5,13 @@ import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
 import Content, { HTMLContent } from '../components/Content'
 
-export const ComponentTemplate = ({
+export const FoundationTemplate = ({
   content,
   contentComponent,
   title,
   helmet,
 }) => {
-  const ComponentContent = contentComponent || Content
+  const FoundationContent = contentComponent || Content
 
   return (
     <section className="section">
@@ -22,7 +22,7 @@ export const ComponentTemplate = ({
             <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
               {title}
             </h1>
-            <ComponentContent content={content} />
+            <FoundationContent content={content} />
           </div>
         </div>
       </div>
@@ -30,42 +30,42 @@ export const ComponentTemplate = ({
   )
 }
 
-ComponentTemplate.propTypes = {
+FoundationTemplate.propTypes = {
   content: PropTypes.node.isRequired,
   contentComponent: PropTypes.func,
   title: PropTypes.string,
   helmet: PropTypes.object,
 }
 
-const Component = ({ data }) => {
-  const { markdownRemark: component } = data
+const Foundation = ({ data }) => {
+  const { markdownRemark: foundation } = data
 
   return (
     <Layout>
-      <ComponentTemplate
-        content={component.html}
+      <FoundationTemplate
+        content={foundation.html}
         contentComponent={HTMLContent}
         helmet={
-          <Helmet titleTemplate="%s | Component">
-            <title>{`${component.frontmatter.title}`}</title>
+          <Helmet titleTemplate="%s | Foundation">
+            <title>{`${foundation.frontmatter.title}`}</title>
           </Helmet>
         }
-        title={component.frontmatter.title}
+        title={foundation.frontmatter.title}
       />
     </Layout>
   )
 }
 
-Component.propTypes = {
+Foundation.propTypes = {
   data: PropTypes.shape({
     markdownRemark: PropTypes.object,
   }),
 }
 
-export default Component
+export default Foundation
 
 export const pageQuery = graphql`
-  query ComponentByID($id: String!) {
+  query FoundationByID($id: String!) {
     markdownRemark(id: { eq: $id }) {
       id
       html

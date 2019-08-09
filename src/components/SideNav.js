@@ -5,7 +5,9 @@ import { Link, graphql, StaticQuery } from 'gatsby'
 class SideNav extends React.Component {
   render() {
     const { data } = this.props
-    const { edges: components } = data.allMarkdownRemark
+    const { edges: pages } = data.allMarkdownRemark
+    const components = pages.filter(page => page.node.frontmatter.templateKey === 'component')
+    const foundations = pages.filter(page => page.node.frontmatter.templateKey === 'foundation')
 
     return (
       <nav className="sidenav">
@@ -29,6 +31,20 @@ class SideNav extends React.Component {
               </li>
             ))}
         </ul>
+        <p>Foundations</p>
+        <ul>
+          {foundations &&
+            foundations.map(({ node: foundation }) => (
+              <li key={foundation.id}>
+                <Link
+                  className="has-text-primary is-size-6"
+                  to={foundation.fields.slug}
+                >
+                  {foundation.frontmatter.title}
+                </Link>
+              </li>
+            ))}
+        </ul>
       </nav>
     )
   }
@@ -47,7 +63,7 @@ export default () => (
     query={graphql`
       query SideNavQuery {
         allMarkdownRemark(
-          filter: { frontmatter: { templateKey: { eq: "component" } } }
+          filter: { frontmatter: { templateKey: { in: ["component", "foundation"] } } }
         ) {
           edges {
             node {

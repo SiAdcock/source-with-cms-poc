@@ -1,17 +1,14 @@
 import React from 'react'
 
 import Layout from '../../components/Layout'
-import BlogRoll from '../../components/BlogRoll'
+import ComponentsList from '../../components/ComponentsList'
 
 export default class BlogIndexPage extends React.Component {
   render() {
     return (
       <Layout>
         <div
-          className="full-width-image-container margin-top-0"
-          style={{
-            backgroundImage: `url('/img/blog-index.jpg')`,
-          }}
+          className="margin-top-0"
         >
           <h1
             className="has-text-weight-bold is-size-1"
@@ -22,13 +19,13 @@ export default class BlogIndexPage extends React.Component {
               padding: '1rem',
             }}
           >
-            Latest Stories
+            Components
           </h1>
         </div>
         <section className="section">
           <div className="container">
             <div className="content">
-              <BlogRoll />
+              <ComponentsList />
             </div>
           </div>
         </section>
